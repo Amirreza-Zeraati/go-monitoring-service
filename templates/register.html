@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <style>
+        .error { color: red; }
+        input.error-border { border: 1px solid red; }
+    </style>
+</head>
+<body>
+<h1>Create an Account</h1>
+<div id="signup-form">
+    {{ if .Error }}
+    <div class="error">{{ .Error }}</div>
+    {{ end }}
+
+    {{ .Name }}
+    {{ .Email }}
+
+    <form hx-post="/signup" hx-target="#signup-form" hx-swap="outerHTML">
+        <input type="text" name="Name" value="{{ .Name }}" {{ if .Error }}class="error-border"{{ end }} required>
+        <input type="email" name="Email" value="{{ .Email }}" {{ if .Error }}class="error-border"{{ end }} required>
+        <input type="password" name="Password" {{ if .Error }}class="error-border"{{ end }} required>
+        <button type="submit">Register</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,47 +1,35 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"io"
-	"net/http"
-	"os"
-	"sync"
+	"github.com/gin-gonic/gin"
+	"go-monitoring-service/initializers"
+	middleware "go-monitoring-service/middleware/auth"
+	userServices "go-monitoring-service/services/userService"
 )
 
-func getStatus(name, url string) {
-	response, err := http.Get(url)
-	if err != nil {
-		fmt.Println("Error:", err)
-	}
-
-	defer func(Body io.ReadCloser) {
-		err := Body.Close()
-		if err != nil {
-		}
-	}(response.Body)
-
-	fmt.Println(name, response.StatusCode)
+func init() {
+	initializers.LoadEnvFile()
+	initializers.ConnectToDB()
+	initializers.Migrate()
 }
 
 func main() {
-	byteValue, err := os.ReadFile("config.json")
+	r := gin.Default()
+	r.LoadHTMLGlob("templates/*")
+
+	r.GET("/signup", func(c *gin.Context) {
+		c.HTML(200, "register.html", nil)
+	})
+	r.GET("/login", func(c *gin.Context) {
+		c.HTML(200, "login.html", nil)
+	})
+	r.POST("/signup", userServices.Signup)
+	r.POST("/login", userServices.Login)
+
+	r.GET("/dashboard", middleware.RequireAuth, userServices.Dashboard)
+
+	err := r.Run()
 	if err != nil {
-		fmt.Println(err)
-	}
-	var result map[string]string
-	err = json.Unmarshal(byteValue, &result)
-	if err != nil {
-		fmt.Println(err)
-	}
-	var wg sync.WaitGroup
-	for k, v := range result {
-		wg.Add(1)
-		go func(name, url string) {
-			defer wg.Done()
-			getStatus(name, url)
-		}(k, v)
-		wg.Wait()
-		fmt.Println("Done")
+		return
 	}
 }

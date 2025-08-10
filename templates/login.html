@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+<body>
+<h1>Login</h1>
+<form hx-post="/login" hx-swap="innerHTML">
+    <input type="email" name="Email" placeholder="Email" required><br>
+    <input type="password" name="Password" placeholder="Password" required><br>
+    <button type="submit">Login</button>
+</form>
+<div id="message"></div>
+</body>
+</html>
