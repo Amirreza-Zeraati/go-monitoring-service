@@ -2,9 +2,11 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"go-monitoring-service/controllers/dashboardController"
+	"go-monitoring-service/controllers/monitorController"
+	"go-monitoring-service/controllers/userController"
 	"go-monitoring-service/initializers"
 	middleware "go-monitoring-service/middleware/auth"
-	userServices "go-monitoring-service/services/userService"
 )
 
 func init() {
@@ -23,10 +25,15 @@ func main() {
 	r.GET("/login", func(c *gin.Context) {
 		c.HTML(200, "login.html", nil)
 	})
-	r.POST("/signup", userServices.Signup)
-	r.POST("/login", userServices.Login)
+	r.GET("/add-monitor", middleware.RequireAuth, func(c *gin.Context) {
+		c.HTML(200, "add-monitor.html", nil)
+	})
+	r.POST("/signup", userController.Signup)
+	r.POST("/login", userController.Login)
+	r.GET("/logout", userController.Logout)
 
-	r.GET("/dashboard", middleware.RequireAuth, userServices.Dashboard)
+	r.POST("/add-monitor", middleware.RequireAuth, monitorController.AddMonitor)
+	r.GET("/dashboard", middleware.RequireAuth, dashboardController.Dashboard)
 
 	err := r.Run()
 	if err != nil {

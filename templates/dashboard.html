@@ -3,11 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #090c10;
+            height: 100vh;
+            color: #b1b8c0;
+        }
+        .add-monitor {
+            background: #5cdd8b;
+            color: black;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 200px;
+            height: 35px;
+        }
+    </style>
 </head>
 <body>
 <h1>Dashboard</h1>
 <h2>your info :</h2>
 <h5>{{ .user.Name }}</h5>
 <h5>{{ .user.Email }}</h5>
+
+<br>
+<a href="/logout">Logout</a>
+<br><br>
+<a href="/add-monitor"><button class="add-monitor">Add Monitor</button></a>
+
+<h2>Your monitors :</h2>
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Target</th>
+        <th>Interval</th>
+        <th>Active</th>
+        <th>Last Status</th>
+        <th>Last Checked</th>
+    </tr>
+    {{ range .monitors }}
+    <tr>
+        <td>{{ .Name }}</td>
+        <td>{{ .Type }}</td>
+        <td>{{ .Target }}</td>
+        <td>{{ .Interval }}</td>
+        <td>{{ if .Active }}✅{{ else }}❌{{ end }}</td>
+        <td>{{ .LastStatus }}</td>
+        <td>{{ .LastCheckedAt }}</td>
+    </tr>
+    {{ else }}
+    <tr><td colspan="7">No monitors found</td></tr>
+    {{ end }}
+</table>
+
 </body>
 </html>

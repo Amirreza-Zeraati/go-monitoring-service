@@ -12,6 +12,10 @@ import (
 )
 
 func RequireAuth(c *gin.Context) {
+	c.Header("Cache-Control", "no-store")
+	c.Header("Pragma", "no-cache")
+	c.Header("Expires", "0")
+
 	secret := []byte(os.Getenv("SECRET"))
 	tokenString, err := c.Cookie("token")
 	if err != nil {

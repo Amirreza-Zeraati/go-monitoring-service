@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Add Monitor</title>
+</head>
+<body>
+<h1>Add Monitor</h1>
+<form action="/add-monitor" method="POST">
+    <label>
+        Name:<br />
+        <input type="text" name="Name" maxlength="100" required />
+    </label>
+    <br /><br />
+
+    <label>
+        Type:<br />
+        <select name="Type" required>
+            <option value="">-- Select Type --</option>
+            <option value="http">HTTP</option>
+            <option value="dns/ssl">DNS/SSL</option>
+            <option value="db">DB</option>
+            <option value="dead-mans-switch">Dead Man's Switch</option>
+        </select>
+    </label>
+    <br /><br />
+
+    <label>
+        Target (URL or IP):<br />
+        <input type="text" name="Target" maxlength="500" />
+    </label>
+    <br /><br />
+
+    <label>
+        Method:<br />
+        <input type="text" name="Method" maxlength="10" placeholder="GET, POST, etc." />
+    </label>
+    <br /><br />
+
+    <label>
+        Expected Status:<br />
+        <input type="number" name="ExpectedStatus" min="100" max="599" />
+    </label>
+    <br /><br />
+
+    <label>
+        Keyword (optional):<br />
+        <input type="text" name="Keyword" maxlength="255" />
+    </label>
+    <br /><br />
+
+    <label>
+        Interval (seconds):<br />
+        <input type="number" name="Interval" min="1" />
+    </label>
+    <br /><br />
+
+    <label>
+        Retries:<br />
+        <input type="number" name="Retries" min="0" />
+    </label>
+    <br /><br />
+
+    <label>
+        Config (JSON string):<br />
+        <textarea name="Config" rows="4" cols="50" placeholder='{"key":"value"}'></textarea>
+    </label>
+    <br /><br />
+
+    <label>
+        Active:<br />
+        <input type="checkbox" name="Active" checked />
+    </label>
+    <br /><br />
+
+    <button type="submit">Add Monitor</button>
+</form>
+</body>
+</html>
