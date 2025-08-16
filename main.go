@@ -5,6 +5,7 @@ import (
 	"go-monitoring-service/controllers/dashboardController"
 	"go-monitoring-service/controllers/monitorController"
 	"go-monitoring-service/controllers/userController"
+	"go-monitoring-service/services"
 	"go-monitoring-service/initializers"
 	middleware "go-monitoring-service/middleware/auth"
 )
@@ -16,9 +17,14 @@ func init() {
 }
 
 func main() {
+	go services.MonitorScheduler()
+
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*")
 
+	r.GET("/", func(c *gin.Context) {
+		c.HTML(200, "home.html", nil)
+	})
 	r.GET("/signup", func(c *gin.Context) {
 		c.HTML(200, "register.html", nil)
 	})

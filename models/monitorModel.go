@@ -18,4 +18,8 @@ type Monitor struct {
 	Retries        int           `json:"retries"`
 	Config         string        `gorm:"type:jsonb" json:"config"`
 	Active         bool          `gorm:"default:true" json:"active"`
+	LastCheckedAt  time.Time     `json:"last_checked_at"`
+	LastStatus     string        `gorm:"size:50" json:"last_status"` 
+	LastResponseMs int64         `json:"last_response_ms"` 
+	Results        []Result      `gorm:"foreignKey:MonitorID" json:"results"`
 }

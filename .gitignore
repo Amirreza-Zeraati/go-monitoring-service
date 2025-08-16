@@ -61,6 +61,7 @@ venv.bak/
 
 # OS-generated files
 Thumbs.db
+gonitor.db
 
 # Docker
 docker-compose.override.yml
