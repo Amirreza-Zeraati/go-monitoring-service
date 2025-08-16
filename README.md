@@ -12,14 +12,23 @@ A simple monitoring system built with **Go + Gin + GORM + JWT**, allowing users 
 ## Features
 
 ✅ **User Authentication** (Register, Login, Logout)
+
 ✅ **JWT-secured routes** with middleware
+
 ✅ **Monitor Management**
+
   * Add new monitors with type, target, method, expected status, interval, etc.
+    
 ✅ **Background Scheduler**
+
   * Runs monitor checks automatically in the background based on their interval
+    
 ✅ **Results Storage**
+
   * Saves status, latency, and details in a `results` table
+    
 ✅ **Dashboard**
+
   * Each user can view all their monitors and latest results
 
 ---
