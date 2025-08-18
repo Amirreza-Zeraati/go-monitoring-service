@@ -67,7 +67,7 @@ go-monitoring-service/
 ### 1. Clone repository
 
 ```bash
-git clone https://github.com/yourusername/go-monitoring-service.git
+git clone https://github.com/Amirreza-Zeraati/go-monitoring-service.git
 cd go-monitoring-service
 ```
 
